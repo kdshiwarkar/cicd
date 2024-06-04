@@ -8,11 +8,13 @@ pipeline {
 	    stage('Checkout') {
 	        steps {
 			checkout scm			       
-		      }}
+		      }
+	    }
 		stage('Build') {
 	           steps {
 			  sh '/home/kunalshiwarkar/Documents/Devops_software/tar/apache-maven-3.9.7/bin/mvn install'
-	                 }}
+	                 }
+		}
 		stage('Deployment'){
 		    steps {
 			script {
@@ -20,13 +22,16 @@ pipeline {
         	sh 'cp target/cicd.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
         	echo "deployment has been done on QA!"
 			 }
-			elif ( env.ENVIRONMENT == 'UAT' ){
+			else ( env.ENVIRONMENT == 'UAT' ){
     		sh 'cp target/cicd.war /home/kunalshiwarkar/Documents/Devops_software/tar/apache-tomcat-9.0.89/webapps'
     		echo "deployment has been done on UAT!"
 			}
 			echo "deployment has been done!"
 			fi
-			
-			}}}	
-}}
+				
+			}
+		    }
+		}	
+	}
+}
 
